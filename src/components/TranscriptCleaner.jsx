@@ -13,7 +13,7 @@ const TranscriptCleaner = () => {
   const fileInputRef = useRef(null);
 
   /**
-   * Apply all 6 transcript cleaning rules while preserving structure
+   * Apply all 7 transcript cleaning rules while preserving structure
    * Rules:
    * 1. Capitalize "veteran" and "veterans"
    * 2. Capitalize "vet" and "vets"
@@ -21,6 +21,7 @@ const TranscriptCleaner = () => {
    * 4. Capitalize "VA secretary"
    * 5. Replace "V.A." with "VA"
    * 6. Capitalize "department of veterans affairs"
+   * 7. Capitalize "secretary Collins"
    */
   const applyTranscriptRules = (text) => {
     // Regex to identify timestamp lines (format: 00;00;00;08 - 00;00;31;08)
@@ -62,6 +63,9 @@ const TranscriptCleaner = () => {
       
       // Rule 4: Capitalize "VA secretary" (handle both "VA" and "va")
       cleanedLine = cleanedLine.replace(/\b(va|VA)\s+secretary\b/gi, 'VA Secretary');
+      
+      // Rule 7: Capitalize "secretary Collins"
+      cleanedLine = cleanedLine.replace(/\bsecretary\s+collins\b/gi, 'Secretary Collins');
       
       // Rule 1: Capitalize "veteran" and "veterans"
       cleanedLine = cleanedLine.replace(/\bveteran\b/g, 'Veteran');
@@ -267,6 +271,7 @@ const TranscriptCleaner = () => {
                 <li>✓ Capitalize "vet" and "vets"</li>
                 <li>✓ Capitalize "Secretary of Veterans Affairs"</li>
                 <li>✓ Capitalize "VA Secretary"</li>
+                <li>✓ Capitalize "Secretary Collins"</li>
                 <li>✓ Replace "V.A." with "VA"</li>
                 <li>✓ Capitalize "Department of Veterans Affairs"</li>
               </ul>
@@ -338,6 +343,7 @@ const TranscriptCleaner = () => {
       {/* Footer */}
       <div className="mt-6 text-center text-sm text-gray-600">
         <p>Department of Veterans Affairs • Transcript Cleaner Tool</p>
+        <p className="mt-2 text-xs text-gray-500">App Developed by Dominique Ramirez</p>
       </div>
     </div>
   );
